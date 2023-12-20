@@ -10,16 +10,11 @@ const key = "pqylSI564bqFcK8eDIHnOpdNroD19NRGrtn5JbWMDaEF6bFTFX9jLLX2I61EAIVv8IP
 
 const client = new CosmosClient({ endpoint, key });
 
-async function dbFunctions() {
-  const database = client.database("ToDoList");
-  const container = database.container("Items");
-    // Inserting into the database
-    const websiteList = [
-       // insert in this formmat  { id: "4", name: "Urban Outfitters", url: "https://www.urbanoutfitters.com/" }
-      ];
-        for (const item of websiteList) {
-          await container.items.create(item); // Create each item with unique ID
-       }
+
+const database = client.database("ToDoList");
+const container = database.container("Items");
+
+async function dbQuery() {
 
     // querying the database
   const query = "SELECT * FROM c";
@@ -27,10 +22,24 @@ async function dbFunctions() {
 
   console.log(resources);
 }
-//db error handling 
-dbFunctions().catch((error) => {
+
+dbQuery().catch((error) => {
   console.error(error);
 });
 
+async function dbInsert() {
+
+    // Inserting into the database
+    const websiteList = [
+        // insert in this formmat  { id: "4", name: "Urban Outfitters", url: "https://www.urbanoutfitters.com/" }
+       ];
+         for (const item of websiteList) {
+           await container.items.create(item); // Create each item with unique ID
+        }
+}
+dbInsert().catch((error) => {
+    console.error(error);
+  });
+  
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
