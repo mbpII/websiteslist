@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Website List</title>
+  </head>
+  <body>
+    <h1>Website List</h1>
+    <ul id="website-list"></ul>
+
+    <script>
+      fetch("http://localhost:3000/")
+        .then((response) => response.json())
+        .then((data) => {
+          const websiteList = document.getElementById("website-list");
+          data.forEach((website) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${website.name} - ${website.url}`; // Or any desired format
+            websiteList.appendChild(listItem);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    </script>
+  </body>
+</html>
