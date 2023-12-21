@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const cors = require("cors");
+require("dotenv").config();
 
 // connecting to database
 const { CosmosClient } = require("@azure/cosmos");
 
-const endpoint = "https://wishlistdb.documents.azure.com:443/";
-const key =
-  "pqylSI564bqFcK8eDIHnOpdNroD19NRGrtn5JbWMDaEF6bFTFX9jLLX2I61EAIVv8IPXNvY0CiiBACDbZJHVog==";
+const endpoint = process.env.COSMOS_ENDPOINT;
+const key = process.env.COSMOS_KEY;
 
 const client = new CosmosClient({ endpoint, key });
 
